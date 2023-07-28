@@ -1,0 +1,26 @@
+json = _{ SOI ~ value ~ EOI }
+
+// FIXME I think greediness of "," ~ pair messes with the trailing comma idea on a single line
+object = { "{" ~ pair ~ ("," ~ pair)* ~ ","? ~ "}" | "{" ~ "}" }
+pair   = { string ~ ":" ~ value }
+
+// FIXME I think greediness of "," ~ pair messes with the trailing comma idea on a single line
+array = { "[" ~ value ~ ("," ~ value)* ~ ","? ~ "]" | "[" ~ "]" }
+
+value = _{ string | number | object | array | bool | null }
+
+string  = ${ ("\"" ~ double_inner ~ "\"") | ("'" ~ single_inner ~ "'") }
+double_inner = @{ (!("\"" | "\\") ~ ANY)* ~ (escape ~ double_inner)? }
+single_inner = @{ (!("'" | "\\") ~ ANY)* ~ (escape ~ single_inner)? }
+escape  = @{ "\\" ~ ("\"" | "\'" | "\\" | "/" | "b" | "f" | "n" | "r" | "t" | unicode) }
+unicode = @{ "u" ~ ASCII_HEX_DIGIT{4} }
+
+number = @{ "-"? ~ int ~ ("." ~ ASCII_DIGIT+ ~ exp? | exp)? }
+int    = @{ "0" | ASCII_NONZERO_DIGIT ~ ASCII_DIGIT* }
+exp    = @{ ("E" | "e") ~ ("+" | "-")? ~ ASCII_DIGIT+ }
+
+bool = { "true" | "false" }
+
+null = { "null" }
+
+WHITESPACE = _{ " " | "\t" | "\r" | "\n" }

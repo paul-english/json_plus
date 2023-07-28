@@ -1,0 +1,22 @@
+{
+  "nesting": {
+    "inner object": {}
+  },
+  "trailingnesting": {
+    "inner object": {},
+  },
+  "an array": [
+    1.5,
+    true,
+    null,
+    0.000001
+  ],
+  "trailing array": [
+    1.5,
+    true,
+    null,
+    0.000001,
+  ],
+  "string with escaped double quotes": "\"quick brown foxes\"",
+  "single string with escaped single quotes": '\'quick brown foxes\'',
+}
