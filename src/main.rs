@@ -92,6 +92,7 @@ fn serialize_jsonvalue(val: &JSONValue) -> String {
     }
 }
 
+// TODO include comments https://changelog.com/news/jsonc-is-a-superset-of-json-which-supports-comments-6LwR
 pub fn main() {
     let unparsed_file = std::fs::read_to_string("data/data.jplus").expect("cannot read file");
 
